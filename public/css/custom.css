@@ -1,0 +1,105 @@
+#example1_filter {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+#example1_filter label {
+    margin-right: auto; /* Spasi antara label dan input */
+}
+.custom-search {
+    width: 150px; /* Sesuaikan lebar sesuai kebutuhan */
+    height: 30px; /* Sesuaikan tinggi jika diperlukan */
+}
+/* Tentukan aturan CSS hanya untuk pagination dalam tabel tertentu */
+#example1_paginate {
+    text-align: right;
+}
+
+/* Atur margin pada pagination jika perlu */
+#example1_paginate .pagination {
+    margin: 0; /* Menghindari margin yang tidak diinginkan */
+}
+
+/* Mengatur margin antar tombol */
+#example1_paginate .pagination li {
+    margin-left: 5px;
+}
+.table td, .table th {
+    text-align: center;
+    vertical-align: middle;
+}
+.btn-action {
+    width: 30px;
+    height: 30px;
+    padding: 0;
+}
+/* Custom size for Barang modal */
+.modal-lg-custom {
+    max-width: 90%; /* Adjust as needed */
+}
+
+/* Apply custom size to Barang modal */
+#barangModal .modal-dialog {
+    max-width: 90%; /* Adjust to your preference */
+}
+.col-satuan {
+    width: 10px; /* Adjust the width of the 'Satuan' column */
+}
+.col-complete {
+    width: 10px; /* Adjust the width of the 'Complete?' column */
+}
+.col-qty {
+    width: 100px; /* Adjust the width of the 'Complete?' column */
+}
+/* Ikon kategori bulat dan responsif */
+.category-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #f1f1f1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.category-icon i {
+    color: #333;
+}
+
+/* Responsif: Menampilkan ikon secara sejajar di layar mobile */
+@media (max-width: 768px) {
+    .category-icon {
+        width: 60px;
+        height: 60px;
+    }
+}
+
+
+.image-upload-box {
+    background-color: #f8f9fa;
+    text-align: center;
+    overflow: hidden;
+}
+.image-upload-box .icon-placeholder {
+    position: absolute;
+}
+.image-upload-box img {
+    display: block;
+    margin: auto;
+}
+
+.radio-buttons {
+  display: flex;
+  justify-content: flex-start; /* Menyusun elemen radio button ke kanan */
+  gap: 20px; /* Memberikan jarak antar radio button */
+}
+
+.keterangan {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 14px;
+  color: #666;
+}
