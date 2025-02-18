@@ -5,51 +5,51 @@
         <h4>Tambah Barang</h4>
         <h6 class="text-muted" style="font-size: 0.875rem;">Pastikan produk tidak melanggar Hak Kekayaan Intelektual supaya produkmu tidak diturunkan. Pelajari S&K</h6>
 
-
         <!-- Form to create new barang -->
-        <form action="#" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('component.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="mb-3">
-            <section class="container-fluid border rounded p-4" style="border: 2px solid #ddd; background-color: #f9f9f9;">
-            <!-- Nama Barang -->
-            <h4>Informasi Barang</h4>
-            <div class="mb-3">
-                <label for="nama" class="form-label">Nama Barang</label>
-                <input type="text" class="form-control" id="nama" name="nama" placeholder="Contoh: Lapotop (Jenis/Kategori Produo) + (Merk) + Ryzen 5 7000 (Keteranagan) " value="{{ old('nama') }}" required>
-                @error('nama')
-                    <div class="text-danger">{{ $message }}</div>
-                @enderror
+                <section class="container-fluid border rounded p-4" style="border: 2px solid #ddd; background-color: #f9f9f9;">
+                    <!-- Nama Barang -->
+                    <h4>Informasi Barang</h4>
+                    <div class="mb-3">
+                        <label for="nama" class="form-label">Nama Barang</label>
+                        <input type="text" class="form-control" id="nama" name="nama" placeholder="Contoh: Laptop (Jenis/Kategori Produk) + (Merk) + Ryzen 5 7000 (Keterangan)" value="{{ old('nama') }}" required>
+                        @error('nama')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <!-- Harga -->
+                    <div class="mb-3">
+                        <label for="harga" class="form-label">Harga Barang</label>
+                        <input type="number" class="form-control" id="harga" name="harga" placeholder="Masukkan Harga" value="{{ old('harga') }}" required>
+                        @error('harga')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <!-- Kondisi Barang -->
+                    <div class="mb-3">
+                        <label for="kondisi" class="form-label">Kondisi Barang</label>
+                        <div class="radio-buttons">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="condition" id="used" value="used">
+                                <label class="form-check-label" for="used">
+                                    Bekas
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="condition" id="new" value="new">
+                                <label class="form-check-label" for="new">
+                                    Baru
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
 
-            <!-- Harga -->
-            <div class="mb-3">
-                <label for="harga" class="form-label">Harga Barang</label>
-                <input type="number" class="form-control" id="harga" name="harga" placeholder="Masukan Harga" value="{{ old('harga') }}" required>
-                @error('harga')
-                    <div class="text-danger">{{ $message }}</div>
-                @enderror
-            </div>
-            <div class="mb-3">
-                <label for="kondisi" class="form-label">Kondisi Barang</label>
-            
-                <div class="radio-buttons">
-                  <div class="form-check">
-                    <input class="form-check-input" type="radio" name="condition" id="used" value="used">
-                    <label class="form-check-label" for="used">
-                      Bekas
-                    </label>
-                  </div>
-            
-                  <div class="form-check">
-                    <input class="form-check-input" type="radio" name="condition" id="new" value="new">
-                    <label class="form-check-label" for="new">
-                      Baru
-                    </label>
-                  </div>
-                </div>
-            </div>
-            </section>
-            </div>
             <!-- Upload Gambar -->
             <div class="mb-3">
                 <section class="container-fluid border rounded p-4" style="border: 2px solid #ddd; background-color: #f9f9f9;">
@@ -73,44 +73,32 @@
                     @enderror
                 </section>
             </div>
-            
 
-               <!-- Deskripsi -->
-               <div class="mb-3">
+            <!-- Deskripsi -->
+            <div class="mb-3">
                 <label for="deskripsi" class="form-label">Deskripsi Barang</label>
                 <textarea class="form-control" 
                     placeholder="Sepatu Sneakers Pria Tokostore Kanvas Hitam Seri C28B
-            
-            - Model simple
-            - Nyaman Digunakan
-            - Tersedia warna hitam
-            - Sole PVC (injection shoes) yang nyaman dan awet untuk digunakan sehari-hari
-            
-            Bahan:
-            - Upper: Semi Leather (kulit tidak pecah-pecah)
-            - Sole: Premium Rubber Sole
-            
-            Ukuran:
-            - 39 : 25,5 cm
-            - 40 : 26 cm
-            - 41 : 26.5 cm
-            - 42 : 27 cm
-            - 43 : 27.5 - 28 cm
-            
-            Edisi terbatas dari Tokostore dengan model baru dan trendy untukmu. Didesain untuk bisa dipakai dalam berbagai acara. Sangat nyaman 
-            saat dipakai sehingga dapat menunjang penampilan dan kepercayaan dirimu. Beli sekarang sebelum kehabisan!"
+                    Model simple
+                    Nyaman Digunakan
+                    Tersedia warna hitam"
                     id="deskripsi" name="deskripsi" required>{{ old('deskripsi') }}</textarea>
                 @error('deskripsi')
                     <div class="text-danger">{{ $message }}</div>
                 @enderror
             </div>
-            
+
             <div class="text-end">
-                <button type="submit" class="btn btn-danger">Cancel</button>
-                <button type="submit" class="btn btn-success">Simpan & Lanjutkan</button>
-                <button type="submit" class="btn btn-primary">Simpan Barang</button>
+                <!-- Cancel Button: Redirects to the upload.index route -->
+                <a href="{{ route('admin.component.uploadbarang') }}" class="btn btn-danger">Cancel</a>
+
+                <!-- Simpan & Lanjut Button: Save the item and continue adding another one -->
+                <button type="submit" name="save_continue" class="btn btn-success">Simpan & Lanjutkan</button>
+
+                <!-- Simpan Barang Button: Save the item and redirect to the upload.index route -->
+                <button type="submit" name="save" class="btn btn-primary">Simpan Barang</button>
             </div>
-            
+
         </form>
     </section>
 
@@ -132,7 +120,7 @@
 
                         previewImage.src = e.target.result;
                         previewImage.classList.remove('d-none');
-                        iconPlaceholder.classList.add('d-none'); 
+                        iconPlaceholder.classList.add('d-none');
                     }
                     reader.readAsDataURL(file);
                 }

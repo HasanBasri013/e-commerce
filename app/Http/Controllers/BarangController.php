@@ -10,10 +10,15 @@ use Illuminate\Support\Facades\Storage;
 class BarangController extends Controller
 {
     // Method to show the homepage view (admin component)
-    public function showHome()
+    public function index()
     {
-        return view('admin.component.uploadbarang'); // Display 'uploadbarang' view
+        // Fetch all barang along with their images
+        $barangs = Barang::with('images')->get();
+
+        // Return the view with the barang data
+        return view('admin.component.uploadbarang', compact('barangs'));
     }
+
 
     // Method to display the form to create a new barang
     public function create()
@@ -30,9 +35,9 @@ class BarangController extends Controller
             'harga' => 'required|numeric',
             'condition' => 'required|in:new,used',
             'deskripsi' => 'required|string',
-            'gambar.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi gambar
+            'gambar.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validate image files
         ]);
-
+    
         // Store Barang data in the database
         $barang = Barang::create([
             'nama' => $validated['nama'],
@@ -40,7 +45,7 @@ class BarangController extends Controller
             'condition' => $validated['condition'],
             'deskripsi' => $validated['deskripsi'],
         ]);
-
+    
         // Check if the request contains images and save them
         if ($request->hasFile('gambar')) {
             foreach ($request->file('gambar') as $image) {
@@ -54,8 +59,19 @@ class BarangController extends Controller
                 ]);
             }
         }
-
-        // Redirect the user with a success message
-        return redirect()->route('barang.index')->with('success', 'Barang berhasil ditambahkan');
+    
+        // If the "Simpan & Lanjut" button was clicked
+        if ($request->has('save_continue')) {
+            return redirect()->route('component.create')->with('success', 'Barang berhasil disimpan. Tambahkan barang lain.');
+        }
+    
+        // If the "Simpan Barang" button was clicked
+        if ($request->has('save')) {
+            return redirect()->route('admin.component.uploadbarang')->with('success', 'Barang berhasil disimpan.');
+        }
+    
+        // Default save logic (in case of form submission without specific button pressed)
+        return redirect()->route('admin.component.uploadbarang')->with('success', 'Barang berhasil disimpan.');
     }
+    
 }

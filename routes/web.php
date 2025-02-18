@@ -35,7 +35,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
   
     Route::get('/admin/home', [HomeController::class, 'adminHome'])->name('admin.home');
 });
-Route::get('/upload', [BarangController::class, 'showHome'])->name('admin.component.uploadbarang');
+Route::get('/upload', [BarangController::class, 'index'])->name('admin.component.uploadbarang');
 Route::get('/upload/tambahbarang', [BarangController::class, 'create'])->name('component.create');
 Route::post('/upload/tambahbarang/simpan', [BarangController::class, 'store'])->name('component.store');
   
