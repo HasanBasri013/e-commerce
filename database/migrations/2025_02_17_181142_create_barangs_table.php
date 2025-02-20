@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nama');
             $table->decimal('harga', 12, 2);
             $table->enum('condition', ['used', 'new']);
+            $table->string('merk'); // Add merk column here
             $table->text('deskripsi');
             $table->timestamps();
         });

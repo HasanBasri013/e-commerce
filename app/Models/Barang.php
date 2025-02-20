@@ -9,7 +9,7 @@ class Barang extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nama', 'harga', 'condition', 'deskripsi'];
+    protected $fillable = ['nama', 'harga', 'condition', 'merk', 'deskripsi'];
 
     public function images()
     {

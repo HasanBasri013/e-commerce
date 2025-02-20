@@ -21,6 +21,23 @@
                         @enderror
                     </div>
 
+                    <!-- Merk (Brand) Dropdown -->
+                    <div class="mb-3">
+                        <label for="merk" class="form-label">Merk Barang</label>
+                        <select class="form-control" id="merk" name="merk" required>
+                            <option value="">Pilih Merk</option>
+                            <option value="Lenovo" {{ old('merk', $barang->merk) == 'Lenovo' ? 'selected' : '' }}>Lenovo</option>
+                            <option value="HP" {{ old('merk', $barang->merk) == 'HP' ? 'selected' : '' }}>HP</option>
+                            <option value="Asus" {{ old('merk', $barang->merk) == 'Asus' ? 'selected' : '' }}>Asus</option>
+                            <option value="Dell" {{ old('merk', $barang->merk) == 'Dell' ? 'selected' : '' }}>Dell</option>
+                            <option value="Acer" {{ old('merk', $barang->merk) == 'Acer' ? 'selected' : '' }}>Acer</option>
+                            <option value="Apple" {{ old('merk', $barang->merk) == 'Apple' ? 'selected' : '' }}>Apple</option>
+                        </select>
+                        @error('merk')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+
                     <!-- Harga -->
                     <div class="mb-3">
                         <label for="harga" class="form-label">Harga Barang</label>
@@ -36,15 +53,11 @@
                         <div class="radio-buttons">
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="condition" id="used" value="used" {{ old('condition', $barang->condition) == 'used' ? 'checked' : '' }}>
-                                <label class="form-check-label" for="used">
-                                    Bekas
-                                </label>
+                                <label class="form-check-label" for="used">Bekas</label>
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="condition" id="new" value="new" {{ old('condition', $barang->condition) == 'new' ? 'checked' : '' }}>
-                                <label class="form-check-label" for="new">
-                                    Baru
-                                </label>
+                                <label class="form-check-label" for="new">Baru</label>
                             </div>
                         </div>
                     </div>
@@ -60,7 +73,7 @@
                             <label class="image-upload-box d-flex align-items-center justify-content-center border rounded position-relative" style="width: 100%; height: 120px; cursor: pointer;">
                                 <input type="file" name="gambar[]" class="d-none image-input" data-index="{{ $i }}" accept="image/*">
                                 <div class="icon-placeholder text-center">
-                                    <i class="fas fa-camera fa-2x text-muted"></i> 
+                                    <i class="fas fa-camera fa-2x text-muted"></i>
                                     <p class="small text-muted m-0">{{ $i == 0 ? 'Foto Utama' : 'Foto ' . ($i + 1) }}</p>
                                 </div>
                                 <!-- Tampilkan gambar yang sudah ada -->
@@ -84,12 +97,7 @@
             <!-- Deskripsi -->
             <div class="mb-3">
                 <label for="deskripsi" class="form-label">Deskripsi Barang</label>
-                <textarea class="form-control" 
-                    placeholder="Sepatu Sneakers Pria Tokostore Kanvas Hitam Seri C28B
-                    Model simple
-                    Nyaman Digunakan
-                    Tersedia warna hitam"
-                    id="deskripsi" name="deskripsi" required>{{ old('deskripsi', $barang->deskripsi) }}</textarea>
+                <textarea class="form-control" placeholder="Sepatu Sneakers Pria Tokostore Kanvas Hitam Seri C28B Model simple Nyaman Digunakan Tersedia warna hitam" id="deskripsi" name="deskripsi" required>{{ old('deskripsi', $barang->deskripsi) }}</textarea>
                 @error('deskripsi')
                     <div class="text-danger">{{ $message }}</div>
                 @enderror
@@ -106,73 +114,50 @@
     </section>
 
     <script>
-document.querySelectorAll('.image-input').forEach(input => {
-    input.addEventListener('change', function (event) {
-        let files = event.target.files;
-        let imageBoxes = document.querySelectorAll('.image-upload-box');
-        let previewImages = document.querySelectorAll('.preview-image');
-        let deleteButtons = document.querySelectorAll('.delete-image');
+        document.querySelectorAll('.image-input').forEach(input => {
+            input.addEventListener('change', function (event) {
+                let files = event.target.files;
+                let imageBoxes = document.querySelectorAll('.image-upload-box');
+                let previewImages = document.querySelectorAll('.preview-image');
+                let deleteButtons = document.querySelectorAll('.delete-image');
 
-        // Cek jika lebih dari 4 gambar yang dipilih
-        if (files.length > 4) {
-            alert("Anda hanya dapat memilih maksimal 4 gambar.");
-            return;
-        }
+                // Cek jika lebih dari 4 gambar yang dipilih
+                if (files.length > 4) {
+                    alert("Anda hanya dapat memilih maksimal 4 gambar.");
+                    return;
+                }
 
-        // Loop untuk menampilkan preview gambar yang dipilih
-        for (let i = 0; i < files.length; i++) {
-            let file = files[i];
-            let reader = new FileReader();
+                // Loop untuk menampilkan preview gambar yang dipilih
+                for (let i = 0; i < files.length; i++) {
+                    let file = files[i];
+                    let reader = new FileReader();
 
-            reader.onload = function (e) {
-                let previewImage = previewImages[i];
-                let iconPlaceholder = imageBoxes[i].querySelector('.icon-placeholder');
-                let deleteButton = deleteButtons[i];
+                    reader.onload = function (e) {
+                        let previewImage = previewImages[i];
+                        let iconPlaceholder = imageBoxes[i].querySelector('.icon-placeholder');
+                        let deleteButton = deleteButtons[i];
 
-                // Set gambar yang dipilih ke dalam preview
-                previewImage.src = e.target.result;
-                previewImage.classList.remove('d-none');
-                iconPlaceholder.classList.add('d-none');
-                deleteButton.classList.remove('d-none');
+                        // Set gambar yang dipilih ke dalam preview
+                        previewImage.src = e.target.result;
+                        previewImage.classList.remove('d-none');
+                        iconPlaceholder.classList.add('d-none');
+                        deleteButton.classList.remove('d-none');
 
-                // Tambahkan event listener untuk tombol hapus
-                deleteButton.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    previewImage.src = '';
-                    previewImage.classList.add('d-none');
-                    iconPlaceholder.classList.remove('d-none');
-                    deleteButton.classList.add('d-none');
-                    input.value = ''; // Clear the input file
-                });
-            }
+                        // Tambahkan event listener untuk tombol hapus
+                        deleteButton.addEventListener('click', function (e) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            previewImage.src = '';
+                            previewImage.classList.add('d-none');
+                            iconPlaceholder.classList.remove('d-none');
+                            deleteButton.classList.add('d-none');
+                            input.value = ''; // Clear the input file
+                        });
+                    }
 
-            reader.readAsDataURL(file);
-        }
-    });
-});
-
-// Delegate the delete button event for dynamically added elements (future images)
-document.querySelectorAll('.image-upload-box').forEach(box => {
-    box.addEventListener('click', function (e) {
-        // Ensure that the click is on the delete button
-        if (e.target.closest('.delete-image')) {
-            const deleteButton = e.target.closest('.delete-image');
-            const imageBox = deleteButton.closest('.image-upload-box');
-            const previewImage = imageBox.querySelector('.preview-image');
-            const iconPlaceholder = imageBox.querySelector('.icon-placeholder');
-            const inputFile = imageBox.querySelector('.image-input');
-
-            previewImage.src = '';
-            previewImage.classList.add('d-none');
-            iconPlaceholder.classList.remove('d-none');
-            deleteButton.classList.add('d-none');
-            inputFile.value = ''; // Clear the input file
-        }
-    });
-});
-
+                    reader.readAsDataURL(file);
+                }
+            });
+        });
     </script>
-
-    <!-- FontAwesome untuk ikon kamera -->
 @endsection

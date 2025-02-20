@@ -20,6 +20,24 @@
                         @enderror
                     </div>
 
+                    <!-- Merk Laptop Dropdown -->
+                    <div class="mb-3">
+                        <label for="merk" class="form-label">Merk Laptop</label>
+                        <select class="form-control" id="merk" name="merk" required>
+                            <option value="">Pilih Merk</option>
+                            <option value="Lenovo" {{ old('merk') == 'Lenovo' ? 'selected' : '' }}>Lenovo</option>
+                            <option value="HP" {{ old('merk') == 'HP' ? 'selected' : '' }}>HP</option>
+                            <option value="Asus" {{ old('merk') == 'Asus' ? 'selected' : '' }}>Asus</option>
+                            <option value="Dell" {{ old('merk') == 'Dell' ? 'selected' : '' }}>Dell</option>
+                            <option value="Acer" {{ old('merk') == 'Acer' ? 'selected' : '' }}>Acer</option>
+                            <option value="Apple" {{ old('merk') == 'Apple' ? 'selected' : '' }}>Apple</option>
+                            <!-- Add more options as needed -->
+                        </select>
+                        @error('merk')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+
                     <!-- Harga -->
                     <div class="mb-3">
                         <label for="harga" class="form-label">Harga Barang</label>
@@ -149,5 +167,4 @@
             });
         });
     </script>
-    <!-- FontAwesome untuk ikon kamera -->
 @endsection
