@@ -1,12 +1,5 @@
 <footer class="fixed-bottom bg-white border-top py-2">
   <div class="container position-relative">
-    <!-- Floating Cart Button -->
-    <div class="position-absolute top-0 start-50 translate-middle">
-      <a href="#" class="btn btn-primary rounded-circle p-3 shadow d-flex justify-content-center align-items-center" style="width: 60px; height: 60px;">
-        <i class="fas fa-cart-plus fs-5 text-white"></i>
-      </a>
-    </div>
-    
     <!-- Navigation Bar -->
     <div class="row justify-content-around text-center">
       <div class="col">
@@ -19,12 +12,6 @@
         <a href="#" class="text-decoration-none text-secondary">
           <i class="bi bi-heart d-block"></i>
           <small>Favorites</small>
-        </a>
-      </div>
-      <div class="col" style="visibility: hidden;"> <!-- Placeholder for floating button -->
-        <a href="#" class="text-decoration-none">
-          <i class="fas fa-cart-plus"></i>
-          <small>Cart</small>
         </a>
       </div>
       <div class="col">
