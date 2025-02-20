@@ -38,6 +38,8 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
 Route::get('/upload', [BarangController::class, 'index'])->name('admin.component.uploadbarang');
 Route::get('/upload/tambahbarang', [BarangController::class, 'create'])->name('component.create');
 Route::post('/upload/tambahbarang/simpan', [BarangController::class, 'store'])->name('component.store');
+Route::get('/upload/edit/{id}', [BarangController::class, 'edit'])->name('component.edit');
+Route::put('/upload/edit/{id}/update', [BarangController::class, 'update'])->name('component.update');
   
 // Route::get('/barang', [BarangController::class, 'barang'])->name('component.barang');
 // Route::get('/barang/modal', [BarangController::class, 'getBarangModal'])->name('component.barang.modal');

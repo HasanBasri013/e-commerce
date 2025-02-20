@@ -50,29 +50,29 @@
                 </section>
             </div>
 
-            <!-- Upload Gambar -->
-            <div class="mb-3">
-                <section class="container-fluid border rounded p-4" style="border: 2px solid #ddd; background-color: #f9f9f9;">
-                    <label class="form-label">Unggah Gambar Barang</label>
-                    <div class="row">
-                        @for ($i = 0; $i < 4; $i++)
-                            <div class="col-md-4 mb-3">
-                                <label class="image-upload-box d-flex align-items-center justify-content-center border rounded position-relative" style="width: 100%; height: 120px; cursor: pointer;">
-                                    <input type="file" name="gambar[]" class="d-none image-input" data-index="{{ $i }}" accept="image/*">
-                                    <div class="icon-placeholder text-center">
-                                        <i class="fas fa-camera fa-2x text-muted"></i> 
-                                        <p class="small text-muted m-0">{{ $i == 0 ? 'Foto Utama' : 'Foto ' . ($i + 1) }}</p>
-                                    </div>
-                                    <img src="" class="preview-image d-none" style="max-width: 100%; max-height: 100%; position: absolute;">
-                                </label>
-                            </div>
-                        @endfor
-                    </div>
-                    @error('gambar')
-                        <div class="text-danger">{{ $message }}</div>
-                    @enderror
-                </section>
-            </div>
+            <section class="container-fluid border rounded p-4" style="border: 2px solid #ddd; background-color: #f9f9f9;">
+                <label class="form-label">Unggah Gambar Barang</label>
+                <div class="row">
+                    @for ($i = 0; $i < 4; $i++)
+                        <div class="col-md-3 mb-3">
+                            <label class="image-upload-box d-flex align-items-center justify-content-center border rounded position-relative" style="width: 100%; height: 120px; cursor: pointer;">
+                                <input type="file" name="gambar[]" class="d-none image-input" data-index="{{ $i }}" accept="image/*" multiple>
+                                <div class="icon-placeholder text-center">
+                                    <i class="fas fa-camera fa-2x text-muted"></i> 
+                                    <p class="small text-muted m-0">{{ $i == 0 ? 'Foto Utama' : 'Foto ' . ($i + 1) }}</p>
+                                </div>
+                                <img src="" class="preview-image d-none" style="max-width: 100%; max-height: 100%; position: absolute;">
+                                <span class="delete-image d-none position-absolute top-0 end-0 p-1" style="cursor: pointer; background-color: rgba(255, 255, 255, 0.8); border-radius: 50%;">
+                                    <i class="fas fa-times text-danger"></i>
+                                </span>
+                            </label>
+                        </div>
+                    @endfor
+                </div>
+                @error('gambar')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </section>
 
             <!-- Deskripsi -->
             <div class="mb-3">
@@ -103,31 +103,51 @@
     </section>
 
     <script>
-        document.querySelectorAll('.image-upload-box').forEach(box => {
-            box.addEventListener('click', function () {
-                this.querySelector('.image-input').click();
-            });
-        });
-
         document.querySelectorAll('.image-input').forEach(input => {
             input.addEventListener('change', function (event) {
-                let file = event.target.files[0];
-                if (file) {
+                let files = event.target.files;
+                let imageBoxes = document.querySelectorAll('.image-upload-box');
+                let previewImages = document.querySelectorAll('.preview-image');
+                let deleteButtons = document.querySelectorAll('.delete-image');
+    
+                // Cek jika lebih dari 4 gambar yang dipilih
+                if (files.length > 4) {
+                    alert("Anda hanya dapat memilih maksimal 4 gambar.");
+                    return;
+                }
+    
+                // Loop untuk menampilkan preview gambar yang dipilih
+                for (let i = 0; i < files.length; i++) {
+                    let file = files[i];
                     let reader = new FileReader();
+    
                     reader.onload = function (e) {
-                        let previewImage = input.closest('.image-upload-box').querySelector('.preview-image');
-                        let iconPlaceholder = input.closest('.image-upload-box').querySelector('.icon-placeholder');
-
+                        let previewImage = previewImages[i];
+                        let iconPlaceholder = imageBoxes[i].querySelector('.icon-placeholder');
+                        let deleteButton = deleteButtons[i];
+    
+                        // Set gambar yang dipilih ke dalam preview
                         previewImage.src = e.target.result;
                         previewImage.classList.remove('d-none');
                         iconPlaceholder.classList.add('d-none');
+                        deleteButton.classList.remove('d-none');
+    
+                        // Tambahkan event listener untuk tombol hapus
+                        deleteButton.addEventListener('click', function (e) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            previewImage.src = '';
+                            previewImage.classList.add('d-none');
+                            iconPlaceholder.classList.remove('d-none');
+                            deleteButton.classList.add('d-none');
+                            input.value = ''; // Clear the input file
+                        });
                     }
+    
                     reader.readAsDataURL(file);
                 }
             });
         });
     </script>
-
     <!-- FontAwesome untuk ikon kamera -->
-
 @endsection

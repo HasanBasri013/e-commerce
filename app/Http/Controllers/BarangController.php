@@ -18,6 +18,61 @@ class BarangController extends Controller
         // Return the view with the barang data
         return view('admin.component.uploadbarang', compact('barangs'));
     }
+   // Edit method: show the form to edit an existing barang
+public function edit($id)
+{
+    // Ambil data barang berdasarkan ID, termasuk gambar-gambarnya
+    $barang = Barang::with('images')->findOrFail($id);
+
+    // Tampilkan view edit dengan data barang
+    return view('admin.component.updateupload', compact('barang')); // corrected 'barangs' to 'barang'
+}
+
+// Update method: handle the update process for a barang
+public function update(Request $request, $id)
+{
+    // Validasi input
+    $request->validate([
+        'nama' => 'required|string|max:255',
+        'harga' => 'required|numeric',
+        'condition' => 'required|in:used,new',
+        'deskripsi' => 'required|string',
+        'gambar.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi untuk gambar
+    ]);
+
+    // Ambil data barang berdasarkan ID
+    $barang = Barang::findOrFail($id);
+
+    // Update data barang
+    $barang->update([
+        'nama' => $request->nama,
+        'harga' => $request->harga,
+        'condition' => $request->condition,
+        'deskripsi' => $request->deskripsi,
+    ]);
+
+    // Handle update gambar (jika ada gambar baru diunggah)
+    if ($request->hasFile('gambar')) {
+        // Hapus gambar lama (opsional)
+        foreach ($barang->images as $image) {
+            Storage::delete($image->image_path); // Hapus file dari storage
+            $image->delete(); // Hapus record dari database
+        }
+
+        // Simpan gambar baru
+        foreach ($request->file('gambar') as $file) {
+            $path = $file->store('public/images'); // Simpan gambar ke storage
+            BarangImage::create([
+                'barang_id' => $barang->id, // corrected component_id to barang_id
+                'image_path' => str_replace('public/', '', $path), // Simpan path relatif
+            ]);
+        }
+    }
+
+    // Redirect ke halaman entalase barang dengan pesan sukses
+    return redirect()->route('admin.component.uploadbarang')->with('success', 'Barang berhasil diperbarui!');
+}
+
 
 
     // Method to display the form to create a new barang
