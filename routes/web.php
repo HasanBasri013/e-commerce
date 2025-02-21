@@ -8,6 +8,7 @@ use App\Http\Controllers\BarangController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\PurchaseOrderController;
+use App\Http\Controllers\BannerController;
 
 
 
@@ -42,6 +43,21 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get('/admin/upload/edit/{id}', [BarangController::class, 'edit'])->name('component.edit');
     Route::put('/admin/upload/edit/{id}/update', [BarangController::class, 'update'])->name('component.update');
 
+        // Route untuk menampilkan daftar banner
+        Route::get('banners', [BannerController::class, 'index'])->name('banners.index');
+        // Route untuk menampilkan form untuk menambah banner
+        Route::get('banners/create', [BannerController::class, 'create'])->name('banners.create');
+        // Route untuk menyimpan banner baru
+        Route::post('banners', [BannerController::class, 'store'])->name('banners.store');
+        // Route untuk menampilkan form edit banner
+        Route::get('banners/{banner}/edit', [BannerController::class, 'edit'])->name('banners.edit');
+        // Route untuk mengupdate banner yang sudah ada
+        Route::put('banners/{banner}', [BannerController::class, 'update'])->name('banners.update');
+        // Route untuk menghapus banner
+        Route::delete('banners/{banner}', [BannerController::class, 'destroy'])->name('banners.destroy');
+        // Route untuk meng-upload gambar
+        Route::post('banners/upload', [BannerController::class, 'uploadImage'])->name('banners.uploadImage');
+        
 
     Route::get('/supplier', [SupplierController::class, 'index'])->name('component.supplier');
     Route::get('/suppliers/modal', [SupplierController::class, 'getSuppliersForModal'])->name('component.supplier.modal'); // For the modal AJAX call

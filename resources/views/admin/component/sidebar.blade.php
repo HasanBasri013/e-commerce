@@ -74,11 +74,32 @@
                 </li>
 
                 <!-- Settings Link -->
-                <li class="nav-item">
-                    <a href="?page=settings" class="nav-link">
+      
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-cogs"></i>
-                        <p>Settings</p>
+                        <p>Settings <i class="right fas fa-angle-left"></i></p>
                     </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{route('banners.index')}}" class="nav-link">
+                                <i class="nav-icon fa fa-boxes-stacked"></i>
+                                <p>Benner</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('component.supplier') }}" class="nav-link">
+                                <i class="nav-icon fa fa-address-book"></i>
+                                <p>Master Supplier</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('component.customer') }}" class="nav-link">
+                                <i class="nav-icon fa fa-address-book"></i>
+                                <p>Master cusomer</p>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
         </nav>
