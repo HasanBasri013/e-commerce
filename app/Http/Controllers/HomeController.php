@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Barang;
+use App\Models\BarangImage;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -24,7 +25,7 @@ class HomeController extends Controller
      */
     public function index(): View
     {
-        return view('home');
+        return view('user.home');
     } 
   
     /**
@@ -54,6 +55,13 @@ class HomeController extends Controller
      */
     public function managerHome(): View
     {
-        return view('kasir.managerHome');
+        $barangs = Barang::with('images')
+        ->orderBy('id', 'desc')  // Urutkan berdasarkan ID secara menurun
+        ->take(4)  // Ambil 4 barang terakhir
+        ->get();
+
+// Kirim data barang ke view 'manager.home'
+        return view('kasir.managerHome', compact('barangs'));;
     }
+
 }

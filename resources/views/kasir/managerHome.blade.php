@@ -67,21 +67,27 @@
                 ['name' => 'Sneakers Nike', 'description' => 'Sepatu sneakers keren untuk semua kegiatan', 'price' => 800000],
             ];
         @endphp
+        @foreach ($barangs as $barang)
+    <div class="col-md-3 mb-4">
+        <div class="card h-100">
+            <!-- Gambar Produk -->
+            @if ($barang->images->isNotEmpty())
+                <img src="{{ Storage::url($barang->images->first()->image_path) }}" class="card-img-top" alt="Image of {{ $barang->nama }}">
+            @else
+                <img src="https://via.placeholder.com/300x200?text=No+Image" class="card-img-top" alt="No image available">
+            @endif
 
-        @foreach($products as $product)
-            <div class="col-md-3">
-                <div class="card">
-                    <!-- Gambar produk dengan URL dummy -->
-                    <img src="https://picsum.photos/300/200?random={{ rand(1, 100) }}" class="card-img-top" alt="{{ $product['name'] }}">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ $product['name'] }}</h5>
-                        <p class="card-text">{{ \Str::limit($product['description'], 80) }}</p>
-                        <p class="card-text">Rp {{ number_format($product['price'], 0, ',', '.') }}</p>
-                        <a href="#" class="btn btn-primary">Beli Sekarang</a>
-                    </div>
-                </div>
+            <div class="card-body d-flex flex-column">
+                <h5 class="card-title">{{ $barang->nama }}</h5>
+                <p class="card-text">{{ \Str::limit($barang->deskripsi, 80) }}</p>
+                <p class="card-text">Rp {{ number_format($barang->harga, 0, ',', '.') }}</p>
+                <a href="#" class="btn btn-primary mt-auto">Beli Sekarang</a>
             </div>
-        @endforeach
+        </div>
+    </div>
+@endforeach
+
+
     </div>
 </div>
 

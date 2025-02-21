@@ -29,6 +29,19 @@ class BarangController extends Controller
         return view('admin.component.updateupload', compact('barang'));
     }
 
+    public function show()
+{
+    // Ambil 4 barang terakhir berdasarkan ID
+    $barangs = Barang::with('images')
+                     ->orderBy('id', 'desc')  // Urutkan berdasarkan ID secara menurun
+                     ->take(4)  // Ambil 4 barang terakhir
+                     ->get();
+
+    // Kirim data barang ke view
+    return view('kasir.managerHome', compact('barangs'));
+}
+
+
     // Update method: handle the update process for a barang
     public function update(Request $request, $id)
     {
@@ -129,4 +142,5 @@ class BarangController extends Controller
         // Default save logic
         return redirect()->route('admin.component.uploadbarang')->with('success', 'Barang berhasil disimpan.');
     }
+
 }

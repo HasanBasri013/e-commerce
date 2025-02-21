@@ -103,3 +103,46 @@
   font-size: 14px;
   color: #666;
 }
+/* Optional: To ensure images fill the space without distorting aspect ratio */
+.card-img-top {
+    object-fit: cover;
+    height: 200px; /* Fixed height for images */
+}
+
+/* Optional: To make sure text content is truncated if too long */
+.card-title.text-truncate {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+/* Optional: Ensures that the card content is aligned properly and gives it a bit of padding */
+.card-body {
+    flex-grow: 1; /* Ensures the body grows to take up available space */
+}
+
+/* Optional: To style the price text for better visibility */
+.card-text.text-warning {
+    font-size: 1.1rem; /* Slightly larger font size for price */
+    font-weight: bold;
+    color: #f39c12; /* Orange color for emphasis */
+}
+
+/* Styling for the button */
+.btn-warning {
+    font-size: 0.85rem;
+    padding: 6px 12px;
+    border-radius: 3px;
+}
+
+.card {
+    height: 300px; /* Fixed height for the card */
+}
+
+/* Optional: To ensure cards have equal height even if the content inside is different */
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
