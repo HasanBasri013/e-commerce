@@ -15,7 +15,7 @@ class BannerController extends Controller
 
         // Menambahkan URL gambar yang dapat diakses secara publik
         $banners->each(function ($banner) {
-            $banner->image_url = Storage::url('uploads/' . $banner->image);
+            $banner->image_url = Storage::url($banner->image); // Menggunakan Storage URL
         });
 
         return view('admin.index', compact('banners'));
@@ -34,21 +34,26 @@ class BannerController extends Controller
 
     public function store(Request $request)
     {
-        // Validasi input - memastikan gambar ada di folder 'uploads'
+        // Validasi input
         $request->validate([
-            'image' => 'required|string|max:255|exists:public/uploads', // Memastikan gambar ada di folder 'uploads'
+            'image' => 'required|string|max:255', // Pastikan nama gambar adalah string
             'description' => 'nullable|string|max:255',
         ]);
-    
-        // Simpan data banner ke database
+
+        // Check if the image exists in the 'uploads' directory
+        $imagePath = 'uploads/' . $request->image;
+        if (!Storage::disk('public')->exists($imagePath)) {
+            return redirect()->back()->withErrors(['image' => 'Gambar tidak ditemukan di folder uploads.']);
+        }
+
+        // Save the banner to the database
         Banner::create([
-            'image' => $request->image,  // Simpan nama gambar
+            'image' => $imagePath,  // Simpan path gambar lengkap di database
             'description' => $request->description,
         ]);
-    
-        return redirect()->route('admin.index')->with('success', 'Banner berhasil ditambahkan.');
+
+        return redirect()->route('banners.index')->with('success', 'Banner berhasil ditambahkan.');
     }
-    
 
     public function update(Request $request, $id)
     {
@@ -62,7 +67,12 @@ class BannerController extends Controller
 
         // Update gambar jika ada perubahan
         if ($request->has('image')) {
-            $banner->image = $request->image;  // Update nama gambar
+            // Cek jika gambar yang dipilih benar-benar ada di folder 'uploads'
+            $imagePath = 'uploads/' . $request->image;
+            if (!Storage::disk('public')->exists($imagePath)) {
+                return redirect()->back()->withErrors(['image' => 'Gambar tidak ditemukan di folder uploads.']);
+            }
+            $banner->image = $imagePath;  // Update path gambar
         }
 
         // Update deskripsi banner jika ada perubahan
@@ -77,23 +87,19 @@ class BannerController extends Controller
         $banner = Banner::findOrFail($id);
 
         // Tambahkan URL gambar yang dapat diakses secara publik
-        $banner->image_url = Storage::url('uploads/' . $banner->image);
+        $banner->image_url = Storage::url($banner->image);
 
         return view('admin.banners.edit', compact('banner'));
     }
 
     public function destroy($id)
     {
+        // Find the banner by its ID
         $banner = Banner::findOrFail($id);
-
-        // Hapus gambar dari penyimpanan jika ada
-        if ($banner->image && Storage::disk('public')->exists('uploads/' . $banner->image)) {
-            Storage::disk('public')->delete('uploads/' . $banner->image);
-        }
-
-        // Hapus banner dari database
+    
+        // Only delete the record from the database (not the image)
         $banner->delete();
-
-        return redirect()->route('admin.banners.index')->with('success', 'Banner berhasil dihapus.');
+    
+        return redirect()->route('banners.index')->with('success', 'Banner berhasil dihapus.');
     }
 }

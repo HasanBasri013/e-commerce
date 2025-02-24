@@ -20,13 +20,17 @@ class UploadController extends Controller
         $request->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
-
+    
         if ($request->hasFile('image')) {
-            // Menyimpan gambar ke folder storage
-            $imagePath = $request->file('image')->store('uploads', 'public');
+            // Mendapatkan nama asli file
+            $imageName = $request->file('image')->getClientOriginalName();
+    
+            // Menyimpan gambar ke folder storage dengan nama asli
+            $imagePath = $request->file('image')->storeAs('uploads', $imageName, 'public');
         }
-
+    
         // Redirect kembali ke halaman upload
         return redirect()->route('upload.index')->with('success', 'Gambar berhasil diupload!');
     }
+    
 }

@@ -10,32 +10,38 @@ class Banner extends Model
 {
     use HasFactory;
 
+    // Menentukan kolom yang dapat diisi
     protected $fillable = ['image', 'description'];
 
-    // Accessor to generate the full URL for the image
+    // Accessor untuk mendapatkan URL gambar lengkap
     public function getImageUrlAttribute()
     {
-        return Storage::url('uploads/' . $this->image);
+        return Storage::url($this->image); // Kembalikan URL gambar yang lengkap dari 'image' field
     }
 
-    // Mutator to automatically store the image
+    // Mutator untuk menyimpan gambar ketika gambar diunggah
     public function setImageAttribute($value)
     {
         if (is_object($value)) {
+            // Jika gambar diunggah (berupa objek file), simpan dengan nama yang unik
             $imageName = uniqid(time() . '_') . '.' . $value->extension();
             $value->storeAs('uploads', $imageName, 'public');
-            $this->attributes['image'] = $imageName;
+            // Simpan nama gambar yang diunggah di database (path relatif)
+            $this->attributes['image'] = 'uploads/' . $imageName;
+        } elseif (is_string($value)) {
+            // Jika gambar adalah string (path file), simpan path tersebut
+            $this->attributes['image'] = $value;
         }
     }
 
-    // Automatically delete the image when the banner is deleted
+    // Fungsi untuk menghapus gambar ketika banner dihapus
     protected static function booted()
     {
         static::deleting(function ($banner) {
-            if (Storage::disk('public')->exists('uploads/' . $banner->image)) {
-                Storage::disk('public')->delete('uploads/' . $banner->image);
+            // Hapus gambar dari storage jika ada
+            if (Storage::disk('public')->exists($banner->image)) {
+                Storage::disk('public')->delete($banner->image);
             }
         });
     }
 }
-
