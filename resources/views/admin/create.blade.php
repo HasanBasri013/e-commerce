@@ -36,15 +36,23 @@
                     <div class="row">
                         @foreach($imageFiles as $image)
                             <div class="col-md-3 mb-3">
-                                <div class="image-thumbnail" style="cursor: pointer;" onclick="selectImage('{{ $image }}')">
-                                    <img src="{{ Storage::url('images/' . $image) }}" alt="{{ $image }}" class="img-fluid" style="width: 100%; height: auto;" />
+                                <div class="image-thumbnail" style="cursor: pointer;" onclick="previewImage('{{ $image }}')">
+                                    <img src="{{ Storage::url('uploads/' . $image) }}" alt="{{ $image }}" class="img-fluid" style="width: 100%; height: auto;" />
                                 </div>
                             </div>
                         @endforeach
                     </div>
+                    <!-- Display the selected image in the modal -->
+                    <div class="form-group mt-3">
+                        <label>Gambar yang dipilih</label>
+                        <div id="selectedImagePreview" class="d-flex justify-content-center">
+                            <img src="" alt="Gambar yang dipilih" id="selectedImage" class="img-fluid" style="max-width: 100px; display: none;" />
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                    <button type="button" class="btn btn-primary" onclick="confirmSelection()">Pilih Gambar</button>
                 </div>
             </div>
         </div>
@@ -54,13 +62,30 @@
 
 @push('scripts')
 <script>
-    // Fungsi untuk memilih gambar
-    function selectImage(image) {
-        // Set nilai input dengan nama gambar yang dipilih
-        document.getElementById('image').value = image;
-        
-        // Menutup modal setelah gambar dipilih
-        $('#imageModal').modal('hide');
+    var selectedImagePath = ""; // Store the selected image path
+
+    // Fungsi untuk menampilkan pratinjau gambar yang dipilih
+    function previewImage(imagePath) {
+        // Tampilkan gambar yang dipilih dalam modal
+        var imageUrl = "{{ Storage::url('uploads/') }}" + imagePath;
+        document.getElementById('selectedImage').src = imageUrl;
+        document.getElementById('selectedImage').style.display = 'block';
+
+        // Simpan path gambar yang dipilih
+        selectedImagePath = imagePath;
+    }
+
+    // Fungsi untuk mengonfirmasi pilihan gambar
+    function confirmSelection() {
+        if (selectedImagePath) {
+            // Set nilai input dengan nama gambar yang dipilih
+            document.getElementById('image').value = selectedImagePath.split('/').pop();
+
+            // Menutup modal setelah gambar dipilih
+            $('#imageModal').modal('hide');
+        } else {
+            alert('Silakan pilih gambar terlebih dahulu!');
+        }
     }
 </script>
 @endpush

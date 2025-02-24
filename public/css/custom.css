@@ -77,7 +77,6 @@
     }
 }
 
-
 .image-upload-box {
     background-color: #f8f9fa;
     text-align: center;
@@ -150,9 +149,54 @@
     border: 1px solid #ddd;
     padding: 5px;
     transition: all 0.3s ease;
+    position: relative;
 }
 
 .image-thumbnail:hover {
     border-color: #007bff;
     box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+}
+
+/* Custom style to position the button on top of the image */
+
+.pilih-gambar-btn {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    z-index: 10;
+}
+
+.image-thumbnail img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+/* New Styles */
+
+#example1_filter {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+#example1_filter label {
+    margin-right: auto; /* Spasi antara label dan input */
+}
+
+.custom-search {
+    width: 150px; /* Sesuaikan lebar sesuai kebutuhan */
+    height: 30px; /* Sesuaikan tinggi jika diperlukan */
+}
+
+#example1_paginate {
+    text-align: right;
+}
+
+#example1_paginate .pagination {
+    margin: 0;
+}
+
+#example1_paginate .pagination li {
+    margin-left: 5px;
 }

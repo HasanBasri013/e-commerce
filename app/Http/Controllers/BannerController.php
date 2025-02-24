@@ -34,20 +34,21 @@ class BannerController extends Controller
 
     public function store(Request $request)
     {
-        // Validasi input (Hanya membutuhkan deskripsi karena gambar sudah ada)
+        // Validasi input - memastikan gambar ada di folder 'uploads'
         $request->validate([
-            'image' => 'required|string|max:255', // Menyimpan nama gambar sebagai string
+            'image' => 'required|string|max:255|exists:public/uploads', // Memastikan gambar ada di folder 'uploads'
             'description' => 'nullable|string|max:255',
         ]);
-
+    
         // Simpan data banner ke database
         Banner::create([
             'image' => $request->image,  // Simpan nama gambar
             'description' => $request->description,
         ]);
-
-        return redirect()->route('admin.banners.index')->with('success', 'Banner berhasil ditambahkan.');
+    
+        return redirect()->route('admin.index')->with('success', 'Banner berhasil ditambahkan.');
     }
+    
 
     public function update(Request $request, $id)
     {
