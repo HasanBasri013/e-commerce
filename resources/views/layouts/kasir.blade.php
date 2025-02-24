@@ -41,4 +41,5 @@
         @include('kasir.component.footer')
     </div>
 </body>
+@yield('scripts')
 </html>

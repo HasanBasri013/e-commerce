@@ -67,25 +67,30 @@
                 ['name' => 'Sneakers Nike', 'description' => 'Sepatu sneakers keren untuk semua kegiatan', 'price' => 800000],
             ];
         @endphp
-        @foreach ($barangs as $barang)
-    <div class="col-md-3 mb-4">
-        <div class="card h-100">
-            <!-- Gambar Produk -->
-            @if ($barang->images->isNotEmpty())
-                <img src="{{ Storage::url($barang->images->first()->image_path) }}" class="card-img-top" alt="Image of {{ $barang->nama }}">
-            @else
-                <img src="https://via.placeholder.com/300x200?text=No+Image" class="card-img-top" alt="No image available">
-            @endif
-
-            <div class="card-body d-flex flex-column">
-                <h5 class="card-title">{{ $barang->nama }}</h5>
-                <p class="card-text">{{ \Str::limit($barang->deskripsi, 80) }}</p>
-                <p class="card-text">Rp {{ number_format($barang->harga, 0, ',', '.') }}</p>
-                <a href="#" class="btn btn-primary mt-auto">Beli Sekarang</a>
-            </div>
-        </div>
-    </div>
-@endforeach
+     @foreach ($barangs as $barang)
+     <div class="col-md-3 mb-4">
+         <div class="card h-100">
+             <!-- Gambar Produk -->
+             @if ($barang->images->isNotEmpty())
+                 <a href="{{ route('product.show', $barang->id) }}">
+                     <img src="{{ Storage::url($barang->images->first()->image_path) }}" class="card-img-top" alt="Image of {{ $barang->nama }}">
+                 </a>
+             @else
+                 <a href="{{ route('product.show', $barang->id) }}">
+                     <img src="https://via.placeholder.com/300x200?text=No+Image" class="card-img-top" alt="No image available">
+                 </a>
+             @endif
+ 
+             <div class="card-body d-flex flex-column">
+                 <h5 class="card-title"><a href="{{ route('product.show', $barang->id) }}">{{ $barang->nama }}</a></h5>
+                 <p class="card-text">{{ \Str::limit($barang->deskripsi, 80) }}</p>
+                 <p class="card-text">Rp {{ number_format($barang->harga, 0, ',', '.') }}</p>
+                 <a href="{{ route('product.show', $barang->id) }}" class="btn btn-primary mt-auto">Beli Sekarang</a>
+             </div>
+         </div>
+     </div>
+ @endforeach
+ 
 
 
     </div>

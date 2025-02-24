@@ -29,18 +29,18 @@ class BarangController extends Controller
         return view('admin.component.updateupload', compact('barang'));
     }
 
+    // Method to show the homepage for the cashier/manager
     public function show()
-{
-    // Ambil 4 barang terakhir berdasarkan ID
-    $barangs = Barang::with('images')
-                     ->orderBy('id', 'desc')  // Urutkan berdasarkan ID secara menurun
-                     ->take(4)  // Ambil 4 barang terakhir
-                     ->get();
+    {
+        // Ambil 4 barang terakhir berdasarkan ID
+        $barangs = Barang::with('images')
+                         ->orderBy('id', 'desc')  // Urutkan berdasarkan ID secara menurun
+                         ->take(4)  // Ambil 4 barang terakhir
+                         ->get();
 
-    // Kirim data barang ke view
-    return view('kasir.managerHome', compact('barangs'));
-}
-
+        // Kirim data barang ke view
+        return view('kasir.managerHome', compact('barangs'));
+    }
 
     // Update method: handle the update process for a barang
     public function update(Request $request, $id)
@@ -143,4 +143,13 @@ class BarangController extends Controller
         return redirect()->route('admin.component.uploadbarang')->with('success', 'Barang berhasil disimpan.');
     }
 
+    // Method to display product details page (show detail of a single product)
+    public function showdetail($id)
+    {
+        // Fetch the product (barang) along with its images
+        $product = Barang::with('images')->findOrFail($id);
+
+        // Return the product details view with product data
+        return view('kasir.component.show', compact('product'));
+    }
 }
