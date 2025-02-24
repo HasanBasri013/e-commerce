@@ -200,3 +200,49 @@
 #example1_paginate .pagination li {
     margin-left: 5px;
 }
+
+.popup {
+    display: none;  /* Initially hidden */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.popup.show {
+    display: block;
+    opacity: 1; /* Popup becomes visible with transition */
+}
+
+/* Checkmark animation */
+.checkmark {
+    font-size: 50px;
+    color: green;
+    margin-bottom: 10px;
+    opacity: 0;
+    animation: checkmark-animation 1s ease-out forwards;
+}
+
+@keyframes checkmark-animation {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 0.7;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+

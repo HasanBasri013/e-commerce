@@ -1,6 +1,6 @@
 <aside class="main-sidebar bg-white">
     <!-- Brand Logo -->
-    <a href="#" class="brand-link">
+    <a href="{{ route('admin.home') }}" class="brand-link">
         <img src="{{ asset('AdminLTE/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3">
         <span class="brand-text font-weight-light">Admin Kasir</span>
     </a>

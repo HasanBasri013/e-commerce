@@ -32,5 +32,16 @@ class UploadController extends Controller
         // Redirect kembali ke halaman upload
         return redirect()->route('upload.index')->with('success', 'Gambar berhasil diupload!');
     }
+    public function destroy($image)
+    {
+        // Menghapus file gambar dari folder 'uploads'
+        $imagePath = 'uploads/' . $image;
+        if (Storage::disk('public')->exists($imagePath)) {
+            Storage::disk('public')->delete($imagePath);  // Hapus gambar
+        }
+
+        // Redirect ke halaman sebelumnya setelah gambar dihapus
+        return redirect()->route('upload.index')->with('success', 'Gambar berhasil dihapus.');
+    }
     
 }

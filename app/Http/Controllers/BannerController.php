@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Banner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 
 class BannerController extends Controller
 {
@@ -39,21 +40,23 @@ class BannerController extends Controller
             'image' => 'required|string|max:255', // Pastikan nama gambar adalah string
             'description' => 'nullable|string|max:255',
         ]);
-
+    
         // Check if the image exists in the 'uploads' directory
         $imagePath = 'uploads/' . $request->image;
         if (!Storage::disk('public')->exists($imagePath)) {
             return redirect()->back()->withErrors(['image' => 'Gambar tidak ditemukan di folder uploads.']);
         }
-
+    
         // Save the banner to the database
         Banner::create([
             'image' => $imagePath,  // Simpan path gambar lengkap di database
             'description' => $request->description,
         ]);
-
+    
+        // Redirect with success message
         return redirect()->route('banners.index')->with('success', 'Banner berhasil ditambahkan.');
     }
+    
 
     public function update(Request $request, $id)
     {
@@ -96,10 +99,16 @@ class BannerController extends Controller
     {
         // Find the banner by its ID
         $banner = Banner::findOrFail($id);
+        
+        // Log gambar yang akan dihapus
+        Log::info('Banner akan dihapus: ', ['image' => $banner->image]);
     
-        // Only delete the record from the database (not the image)
+        // Hanya menghapus entri database, bukan gambar
         $banner->delete();
-    
+        
+        // Mengembalikan respons setelah menghapus entri database
         return redirect()->route('banners.index')->with('success', 'Banner berhasil dihapus.');
     }
+    
+
 }

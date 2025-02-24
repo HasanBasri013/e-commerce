@@ -7,8 +7,12 @@
 
         <!-- Menampilkan pesan sukses jika ada -->
         @if(session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
+            <!-- Triggering the success popup -->
+            <div id="success-popup" class="popup show">
+                <div class="popup-content">
+                    <div class="checkmark">&#10004;</div> <!-- Checkmark icon -->
+                    <p>{{ session('success') }}</p> <!-- Success message -->
+                </div>
             </div>
         @endif
 
@@ -39,4 +43,21 @@
             </tbody>
         </table>
     </div>
+
+
+    <script>
+        // Check if there is a success message in the session
+        @if(session('success'))
+            // Show the popup
+            var popup = document.getElementById('success-popup');
+            popup.classList.add('show');
+
+            // After the animation duration (1 second), hide the popup
+            setTimeout(function() {
+                popup.classList.remove('show');
+            }, 2000); // Wait 4 seconds to allow animation to finish (1 second animation + 3 seconds delay)
+        @endif
+    </script>
+
+
 @endsection

@@ -35,13 +35,4 @@ class Banner extends Model
     }
 
     // Fungsi untuk menghapus gambar ketika banner dihapus
-    protected static function booted()
-    {
-        static::deleting(function ($banner) {
-            // Hapus gambar dari storage jika ada
-            if (Storage::disk('public')->exists($banner->image)) {
-                Storage::disk('public')->delete($banner->image);
-            }
-        });
-    }
 }
