@@ -88,9 +88,9 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('component.supplier') }}" class="nav-link">
+                            <a href="{{ route('upload.index') }}" class="nav-link">
                                 <i class="nav-icon fa fa-address-book"></i>
-                                <p>Master Supplier</p>
+                                <p>Upload Gambar</p>
                             </a>
                         </li>
                         <li class="nav-item">

@@ -146,3 +146,13 @@
     justify-content: space-between;
     height: 100%;
 }
+.image-thumbnail {
+    border: 1px solid #ddd;
+    padding: 5px;
+    transition: all 0.3s ease;
+}
+
+.image-thumbnail:hover {
+    border-color: #007bff;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+}

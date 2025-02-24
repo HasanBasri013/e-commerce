@@ -9,6 +9,7 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\PurchaseOrderController;
 use App\Http\Controllers\BannerController;
+use App\Http\Controllers\UploadController;
 
 
 
@@ -58,6 +59,8 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
         // Route untuk meng-upload gambar
         Route::post('banners/upload', [BannerController::class, 'uploadImage'])->name('banners.uploadImage');
         
+        Route::get('upload', [UploadController::class, 'index'])->name('upload.index');
+        Route::post('upload', [UploadController::class, 'store'])->name('upload.store');
 
     Route::get('/supplier', [SupplierController::class, 'index'])->name('component.supplier');
     Route::get('/suppliers/modal', [SupplierController::class, 'getSuppliersForModal'])->name('component.supplier.modal'); // For the modal AJAX call

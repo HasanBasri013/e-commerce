@@ -2,25 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\Banner;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 class BannerController extends Controller
 {
     public function index()
     {
+        // Mengambil semua banner dari database
         $banners = Banner::all();
+
+        // Menambahkan URL gambar yang dapat diakses secara publik
+        $banners->each(function ($banner) {
+            $banner->image_url = Storage::url('uploads/' . $banner->image);
+        });
+
         return view('admin.index', compact('banners'));
     }
 
     public function create()
     {
+        // Ambil daftar file gambar yang sudah ada di folder 'uploads'
         $imageFiles = Storage::disk('public')->files('uploads');
         $imageFiles = array_map(function ($file) {
-            return basename($file); // Get only the filename
+            return basename($file); // Ambil nama file saja
         }, $imageFiles);
 
         return view('admin.create', compact('imageFiles'));
@@ -28,71 +34,63 @@ class BannerController extends Controller
 
     public function store(Request $request)
     {
+        // Validasi input (Hanya membutuhkan deskripsi karena gambar sudah ada)
         $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'description' => 'nullable|string',
+            'image' => 'required|string|max:255', // Menyimpan nama gambar sebagai string
+            'description' => 'nullable|string|max:255',
         ]);
 
-        $imageName = time() . '.' . $request->image->extension();
-        $request->image->storeAs('uploads', $imageName, 'public');
-
+        // Simpan data banner ke database
         Banner::create([
-            'image' => $imageName,
+            'image' => $request->image,  // Simpan nama gambar
             'description' => $request->description,
         ]);
 
         return redirect()->route('admin.banners.index')->with('success', 'Banner berhasil ditambahkan.');
     }
 
-    public function uploadImage(Request $request)
-    {
-        $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
-
-        $imageName = time() . '.' . $request->image->extension();
-        $request->image->storeAs('uploads', $imageName, 'public'); // Ensure it's stored in the 'public' disk
-
-        return response()->json(['success' => true, 'image' => $imageName]);
-    }
-
-    public function edit($id)
-    {
-        $banner = Banner::findOrFail($id);
-        return view('admin.banners.edit', compact('banner'));
-    }
-
     public function update(Request $request, $id)
     {
         $banner = Banner::findOrFail($id);
 
+        // Validasi input (Hanya membutuhkan deskripsi karena gambar sudah ada)
         $request->validate([
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'description' => 'nullable|string',
+            'image' => 'nullable|string|max:255',  // Nama gambar yang sudah dipilih
+            'description' => 'nullable|string|max:255',
         ]);
 
-        if ($request->hasFile('image')) {
-            Storage::disk('public')->delete('uploads/' . $banner->image);
-
-            $imageName = time() . '.' . $request->image->extension();
-            $request->image->storeAs('uploads', $imageName, 'public');
-            $banner->image = $imageName;
+        // Update gambar jika ada perubahan
+        if ($request->has('image')) {
+            $banner->image = $request->image;  // Update nama gambar
         }
 
+        // Update deskripsi banner jika ada perubahan
         $banner->description = $request->description;
         $banner->save();
 
         return redirect()->route('admin.banners.index')->with('success', 'Banner berhasil diperbarui.');
     }
 
+    public function edit($id)
+    {
+        $banner = Banner::findOrFail($id);
+
+        // Tambahkan URL gambar yang dapat diakses secara publik
+        $banner->image_url = Storage::url('uploads/' . $banner->image);
+
+        return view('admin.banners.edit', compact('banner'));
+    }
+
     public function destroy($id)
     {
         $banner = Banner::findOrFail($id);
 
-        if (Storage::disk('public')->exists('uploads/' . $banner->image)) {
+        // Hapus gambar dari penyimpanan jika ada
+        if ($banner->image && Storage::disk('public')->exists('uploads/' . $banner->image)) {
             Storage::disk('public')->delete('uploads/' . $banner->image);
         }
 
+        // Hapus banner dari database
         $banner->delete();
 
         return redirect()->route('admin.banners.index')->with('success', 'Banner berhasil dihapus.');
