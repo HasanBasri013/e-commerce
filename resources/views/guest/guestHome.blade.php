@@ -83,7 +83,7 @@
  
              <div class="card-body d-flex flex-column">
                  <h5 class="card-title"><a href="{{ route('product.show', $barang->id) }}">{{ $barang->nama }}</a></h5>
-                 <p class="card-text">{{ \Str::limit($barang->merk, 80) }}</p>
+                 <p class="card-text">{{ \Str::limit($barang->deskripsi, 80) }}</p>
                  <p class="card-text">Rp {{ number_format($barang->harga, 0, ',', '.') }}</p>
                  <a href="{{ route('product.show', $barang->id) }}" class="btn btn-primary mt-auto">Beli Sekarang</a>
              </div>

@@ -82,26 +82,21 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{route('banners.index')}}" class="nav-link">
-                                <i class="nav-icon fa fa-boxes-stacked"></i>
-                                <p>Benner</p>
+                            <a href="{{ route('banners.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-image"></i> <!-- Updated icon -->
+                                <p>Banner</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('upload.index') }}" class="nav-link">
-                                <i class="nav-icon fa fa-address-book"></i>
+                                <i class="nav-icon fas fa-upload"></i> <!-- Updated icon -->
                                 <p>Upload Gambar</p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="{{ route('component.customer') }}" class="nav-link">
-                                <i class="nav-icon fa fa-address-book"></i>
-                                <p>Master cusomer</p>
-                            </a>
-                        </li>
                     </ul>
-                </li>
+                    
             </ul>
         </nav>
     </div>
+    
 </aside>

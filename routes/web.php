@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\GuestController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\CustomerController;
@@ -80,6 +81,12 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::resource('purchase_order', PurchaseOrderController::class);
 });
 
+Route::middleware(['guest'])->group(function () {
+    Route::get('/login', [GuestController::class, 'showLoginForm'])->name('login');
+    Route::get('/register', [GuestController::class, 'showRegistrationForm'])->name('register');
+    Route::get('/about', [GuestController::class, 'showAboutPage'])->name('about');
+    // Tambahkan rute lainnya yang hanya bisa diakses oleh guest
+});
 
 
 /*------------------------------------------
