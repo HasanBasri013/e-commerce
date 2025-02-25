@@ -329,8 +329,8 @@ class ComposerStaticInit73d8791d185b6786299669ec6b385059
         ),
         'Spatie\\Ignition\\' => 
         array (
-            0 => __DIR__ . '/..' . '/spatie/ignition/src',
-            1 => __DIR__ . '/..' . '/spatie/error-solutions/legacy/ignition',
+            0 => __DIR__ . '/..' . '/spatie/error-solutions/legacy/ignition',
+            1 => __DIR__ . '/..' . '/spatie/ignition/src',
         ),
         'Spatie\\FlareClient\\' => 
         array (
@@ -2029,7 +2029,7 @@ class ComposerStaticInit73d8791d185b6786299669ec6b385059
         'Illuminate\\Database\\Eloquent\\Concerns\\HasUniqueIds' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/HasUniqueIds.php',
         'Illuminate\\Database\\Eloquent\\Concerns\\HasUniqueStringIds' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/HasUniqueStringIds.php',
         'Illuminate\\Database\\Eloquent\\Concerns\\HasUuids' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/HasUuids.php',
-        'Illuminate\\Database\\Eloquent\\Concerns\\HasVersion7Uuids' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/HasVersion7Uuids.php',
+        'Illuminate\\Database\\Eloquent\\Concerns\\HasVersion4Uuids' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/HasVersion4Uuids.php',
         'Illuminate\\Database\\Eloquent\\Concerns\\HidesAttributes' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/HidesAttributes.php',
         'Illuminate\\Database\\Eloquent\\Concerns\\PreventsCircularRecursion' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/PreventsCircularRecursion.php',
         'Illuminate\\Database\\Eloquent\\Concerns\\QueriesRelationships' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/QueriesRelationships.php',
@@ -2391,6 +2391,7 @@ class ComposerStaticInit73d8791d185b6786299669ec6b385059
         'Illuminate\\Http\\Concerns\\InteractsWithFlashData' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Http/Concerns/InteractsWithFlashData.php',
         'Illuminate\\Http\\Concerns\\InteractsWithInput' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Http/Concerns/InteractsWithInput.php',
         'Illuminate\\Http\\Exceptions\\HttpResponseException' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Http/Exceptions/HttpResponseException.php',
+        'Illuminate\\Http\\Exceptions\\MalformedUrlException' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Http/Exceptions/MalformedUrlException.php',
         'Illuminate\\Http\\Exceptions\\PostTooLargeException' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Http/Exceptions/PostTooLargeException.php',
         'Illuminate\\Http\\Exceptions\\ThrottleRequestsException' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Http/Exceptions/ThrottleRequestsException.php',
         'Illuminate\\Http\\File' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Http/File.php',
@@ -2403,6 +2404,7 @@ class ComposerStaticInit73d8791d185b6786299669ec6b385059
         'Illuminate\\Http\\Middleware\\SetCacheHeaders' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Http/Middleware/SetCacheHeaders.php',
         'Illuminate\\Http\\Middleware\\TrustHosts' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Http/Middleware/TrustHosts.php',
         'Illuminate\\Http\\Middleware\\TrustProxies' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php',
+        'Illuminate\\Http\\Middleware\\ValidatePathEncoding' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Http/Middleware/ValidatePathEncoding.php',
         'Illuminate\\Http\\Middleware\\ValidatePostSize' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Http/Middleware/ValidatePostSize.php',
         'Illuminate\\Http\\RedirectResponse' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Http/RedirectResponse.php',
         'Illuminate\\Http\\Request' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Http/Request.php',
@@ -2762,7 +2764,6 @@ class ComposerStaticInit73d8791d185b6786299669ec6b385059
         'Illuminate\\Support\\Optional' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/Optional.php',
         'Illuminate\\Support\\Pluralizer' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/Pluralizer.php',
         'Illuminate\\Support\\ProcessUtils' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/ProcessUtils.php',
-        'Illuminate\\Support\\Process\\PhpExecutableFinder' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/Process/PhpExecutableFinder.php',
         'Illuminate\\Support\\Reflector' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/Reflector.php',
         'Illuminate\\Support\\ServiceProvider' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/ServiceProvider.php',
         'Illuminate\\Support\\Sleep' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/Sleep.php',
