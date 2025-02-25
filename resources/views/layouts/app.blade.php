@@ -13,7 +13,7 @@
     <!-- Bootstrap Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
     <!-- AdminLTE CSS -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js']) <!-- Recommended if using Vite -->
+    <link href="{{ asset('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet"> <!-- Recommended if using Vite -->
     <link href="{{ asset('AdminLTE/dist/css/adminlte.min.css') }}" rel="stylesheet"> <!-- If using asset() -->
     <!-- Optional: Custom Styles -->
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
@@ -37,11 +37,11 @@
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
         
         <!-- Bootstrap JS -->
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script> <!-- AdminLTE JS -->
         
         <!-- AdminLTE JS -->
         <script src="{{ asset('AdminLTE/dist/js/adminlte.min.js') }}"></script> <!-- AdminLTE JS -->
-
+        
         <!-- Optional Custom Script -->
         <script>
             $(document).ready(function() {

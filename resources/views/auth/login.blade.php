@@ -13,9 +13,10 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    <link href="{{ asset('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
 
-    <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <!-- Scripts
+    {{-- @vite(['resources/sass/app.scss', 'resources/js/app.js']) --}}-->
 
     <style>
         body {
@@ -81,6 +82,6 @@
 
     <!-- Bootstrap JS and Popper.js (required for some Bootstrap components) -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9gybP5Y4dZdyT67g2g3g8toSg9cR9a9r6E1o9Kp5YJ5gxK4YdrzB" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-pzjw8f+ua7Kw1TIq0VvvPejOdP2cEXp9U4Co4Og3zTtnuD/e0w6Mmf3l5S3F0gD3" crossorigin="anonymous"></script>
+    <script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
 </body>
 </html>
