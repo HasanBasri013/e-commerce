@@ -18,7 +18,6 @@
     <!-- AdminLTE CSS -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js']) <!-- Recommended if using Vite -->
     <link href="{{ asset('AdminLTE/dist/css/adminlte.min.css') }}" rel="stylesheet"> <!-- If using asset() -->
-    <link href="{{ asset('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet"> 
     <style>
         body {
             padding-bottom: 60px; /* Height of the footer */
@@ -29,7 +28,7 @@
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
     <!-- Scripts -->
-   
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     
 </head>
 <body>
@@ -42,6 +41,5 @@
         @include('kasir.component.footer')
     </div>
 </body>
-<script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
 @yield('scripts')
 </html>
